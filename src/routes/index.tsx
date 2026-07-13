@@ -57,7 +57,7 @@ function Home() {
           <div className="container-page relative z-10 grid md:grid-cols-2 gap-10 items-center">
             <div className="text-center md:text-left flex flex-col items-center md:items-start max-w-xl mx-auto md:mx-0">
               <h1 className="font-display font-bold text-5xl sm:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-foreground">
-                Biggest <span className="text-accent underline decoration-4 underline-offset-4">bookstore</span>
+                Biggest bookstore
                 <br /> in Europe
               </h1>
               <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-md">
