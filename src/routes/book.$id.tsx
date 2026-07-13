@@ -144,7 +144,7 @@ function BookPage() {
           </div>
 
           <p className="text-muted-foreground leading-relaxed mb-8 max-w-md text-sm sm:text-base">
-            {book.description || "A wonderful addition to your reading collection. Beautifully bound and ready to be explored."}
+            {(book.description || "A wonderful addition to your reading collection. Beautifully bound and ready to be explored.").replace(/—/g, "-")}
           </p>
 
           {/* Mode Selector matching design's attributes */}

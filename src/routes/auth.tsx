@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const Route = createFileRoute("/auth")({
-  head: () => ({ meta: [{ title: "Sign in — Bibliophile" }] }),
+  head: () => ({ meta: [{ title: "Sign in | Bibliophile" }] }),
   component: AuthPage,
 });
 
@@ -40,7 +40,7 @@ function AuthPage() {
     });
     setLoading(false);
     if (error) return toast.error(error.message);
-    toast.success("Account created — you're signed in.");
+    toast.success("Account created - you're signed in.");
     navigate({ to: "/" });
   };
 

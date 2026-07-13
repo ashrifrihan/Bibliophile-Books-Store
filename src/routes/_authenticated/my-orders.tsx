@@ -8,7 +8,7 @@ import { fmt } from "@/lib/cart";
 import type { Order } from "@/lib/types";
 
 export const Route = createFileRoute("/_authenticated/my-orders")({
-  head: () => ({ meta: [{ title: "My Orders — Bibliophile" }] }),
+  head: () => ({ meta: [{ title: "My Orders | Bibliophile" }] }),
   component: MyOrders,
 });
 

@@ -6,7 +6,7 @@ import { Footer } from "@/components/site/Footer";
 import type { Rental } from "@/lib/types";
 
 export const Route = createFileRoute("/_authenticated/my-rentals")({
-  head: () => ({ meta: [{ title: "My Rentals — Bibliophile" }] }),
+  head: () => ({ meta: [{ title: "My Rentals | Bibliophile" }] }),
   component: MyRentals,
 });
 

@@ -16,7 +16,7 @@ export function Footer() {
           </div>
           <p className="text-sm opacity-80 max-w-xs">
             A neighborhood bookstore for readers, dreamers, and collectors. Buy or rent
-            — always thoughtfully curated.
+            - always thoughtfully curated.
           </p>
         </div>
         <div>

@@ -56,7 +56,7 @@ export function HorizontalBookCard({ book }: { book: Book }) {
           </div>
           
           <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 md:line-clamp-3 leading-relaxed">
-            {book.description || `A wonderful addition to your collection. Discover more about ${book.title} by ${book.author}.`}
+            {(book.description || `A wonderful addition to your collection. Discover more about ${book.title} by ${book.author}.`).replace(/—/g, "-")}
           </p>
         </div>
 
