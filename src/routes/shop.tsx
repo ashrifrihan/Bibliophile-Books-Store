@@ -9,6 +9,7 @@ import { BookCard } from "@/components/site/BookCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CATEGORIES, type Book } from "@/lib/types";
+import { Filter, Search, MessageCircle } from "lucide-react";
 
 const searchSchema = z.object({
   q: z.string().optional(),
@@ -21,8 +22,8 @@ export const Route = createFileRoute("/shop")({
   validateSearch: (s) => searchSchema.parse(s),
   head: () => ({
     meta: [
-      { title: "Shop All Books — Bibliophile" },
-      { name: "description", content: "Browse the full Bibliophile catalog. Filter by category, price, or buy/rent mode." },
+      { title: "Shop All Books — Bookio" },
+      { name: "description", content: "Browse the full Bookio catalog. Filter by category, price, or buy/rent mode." },
     ],
   }),
   component: Shop,
@@ -34,7 +35,8 @@ function Shop() {
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
   const [page, setPage] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(search.max ?? 100);
+  const [maxPrice, setMaxPrice] = useState(search.max ?? 5000);
+  const [searchInput, setSearchInput] = useState(search.q ?? "");
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["books", "shop", search, page],
@@ -60,94 +62,164 @@ function Shop() {
   };
 
   return (
-    <>
+    <div className="bg-background min-h-screen">
       <Header />
-      <main className="container-page py-8 md:py-12">
-        <header className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-display font-bold">Shop Books</h1>
-          <p className="text-muted-foreground">{data?.count ?? 0} titles in stock</p>
-        </header>
+      
+      {/* Page Header Banner */}
+      <div className="bg-[#1e3a5f] text-white py-16">
+        <div className="container-page text-center">
+          <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">Shop Books</h1>
+          <p className="text-white/80 max-w-xl mx-auto text-lg">Browse our extensive collection of {data?.count ?? 0} titles. Find your next favorite read.</p>
+        </div>
+      </div>
 
-        <div className="grid md:grid-cols-[240px_1fr] gap-8">
-          {/* Filters */}
-          <aside className="space-y-6">
-            <div>
-              <h3 className="text-sm font-semibold mb-3">Category</h3>
-              <div className="flex flex-col gap-1">
-                <button
-                  onClick={() => update({ category: undefined })}
-                  className={`text-left text-sm px-3 py-1.5 rounded-md hover:bg-muted ${!search.category ? "bg-primary text-primary-foreground hover:bg-primary" : ""}`}
-                >All</button>
-                {CATEGORIES.map((c) => (
-                  <button
-                    key={c}
-                    onClick={() => update({ category: c })}
-                    className={`text-left text-sm px-3 py-1.5 rounded-md hover:bg-muted ${search.category === c ? "bg-primary text-primary-foreground hover:bg-primary" : ""}`}
-                  >{c}</button>
-                ))}
+      <main className="container-page py-12">
+        <div className="flex flex-col md:flex-row gap-10">
+          {/* Sidebar Filters */}
+          <aside className="w-full md:w-64 shrink-0 space-y-8">
+            <div className="bg-card rounded-xl border border-border p-6 shadow-sm">
+              <div className="flex items-center gap-2 font-bold text-lg mb-6 text-[#1e3a5f] border-b pb-3">
+                <Filter className="h-5 w-5 text-primary" /> Filters
               </div>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold mb-3">Mode</h3>
-              <div className="flex flex-col gap-1">
-                {[
-                  { v: undefined, label: "Any" },
-                  { v: "sell", label: "Buy only" },
-                  { v: "rent", label: "Rent only" },
-                ].map((o) => (
-                  <button
-                    key={o.label}
-                    onClick={() => update({ mode: o.v as any })}
-                    className={`text-left text-sm px-3 py-1.5 rounded-md hover:bg-muted ${(search.mode ?? undefined) === o.v ? "bg-primary text-primary-foreground hover:bg-primary" : ""}`}
-                  >{o.label}</button>
-                ))}
+              
+              <div className="space-y-6">
+                {/* Search */}
+                <div>
+                  <h3 className="text-sm font-semibold mb-3 text-foreground/80 uppercase tracking-wider">Search</h3>
+                  <div className="relative">
+                    <Input
+                      placeholder="Title or author…"
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && update({ q: searchInput || undefined })}
+                      className="pr-10"
+                    />
+                    <button 
+                      onClick={() => update({ q: searchInput || undefined })}
+                      className="absolute right-0 top-0 h-full px-3 text-muted-foreground hover:text-primary"
+                    >
+                      <Search className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Categories */}
+                <div>
+                  <h3 className="text-sm font-semibold mb-3 text-foreground/80 uppercase tracking-wider">Categories</h3>
+                  <div className="flex flex-col gap-1.5">
+                    <button
+                      onClick={() => update({ category: undefined })}
+                      className={`text-left text-sm px-3 py-2 rounded-lg transition-colors ${!search.category ? "bg-primary/10 text-primary font-semibold" : "hover:bg-muted text-muted-foreground"}`}
+                    >All Categories</button>
+                    {CATEGORIES.map((c) => (
+                      <button
+                        key={c}
+                        onClick={() => update({ category: c })}
+                        className={`text-left text-sm px-3 py-2 rounded-lg transition-colors ${search.category === c ? "bg-primary/10 text-primary font-semibold" : "hover:bg-muted text-muted-foreground"}`}
+                      >{c}</button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Mode */}
+                <div>
+                  <h3 className="text-sm font-semibold mb-3 text-foreground/80 uppercase tracking-wider">Mode</h3>
+                  <div className="flex flex-col gap-1.5">
+                    {[
+                      { v: undefined, label: "Any" },
+                      { v: "sell", label: "Buy only" },
+                      { v: "rent", label: "Rent only" },
+                    ].map((o) => (
+                      <button
+                        key={o.label}
+                        onClick={() => update({ mode: o.v as any })}
+                        className={`text-left text-sm px-3 py-2 rounded-lg transition-colors ${(search.mode ?? undefined) === o.v ? "bg-primary/10 text-primary font-semibold" : "hover:bg-muted text-muted-foreground"}`}
+                      >{o.label}</button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Price */}
+                <div>
+                  <h3 className="text-sm font-semibold mb-3 text-foreground/80 uppercase tracking-wider">Max price</h3>
+                  <div className="flex items-center gap-2">
+                    <div className="relative flex-1">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">Rs.</span>
+                      <Input
+                        type="number"
+                        min={0}
+                        value={maxPrice}
+                        onChange={(e) => setMaxPrice(Number(e.target.value))}
+                        className="pl-9"
+                      />
+                    </div>
+                    <Button size="icon" variant="secondary" onClick={() => update({ max: maxPrice })}>
+                      <Search className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => {
+                    setMaxPrice(5000);
+                    setSearchInput("");
+                    navigate({ search: {} as any });
+                  }}
+                >
+                  Clear All Filters
+                </Button>
               </div>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold mb-3">Max price</h3>
-              <Input
-                type="number"
-                min={0}
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-              />
-              <Button size="sm" className="mt-2 w-full" onClick={() => update({ max: maxPrice })}>Apply</Button>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold mb-3">Search</h3>
-              <Input
-                placeholder="Title or author…"
-                defaultValue={search.q ?? ""}
-                onKeyDown={(e) => e.key === "Enter" && update({ q: (e.target as HTMLInputElement).value || undefined })}
-              />
             </div>
           </aside>
 
           {/* Grid */}
-          <div>
+          <div className="flex-1">
             {isLoading ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="aspect-[2/3] rounded-xl bg-muted animate-pulse" />
+                  <div key={i} className="aspect-[2/3] rounded-sm bg-muted animate-pulse" />
                 ))}
               </div>
             ) : error ? (
-              <div className="p-8 rounded-xl border bg-danger/5 text-danger">
-                We couldn't load books. Please refresh in a moment.
+              <div className="p-12 rounded-xl border bg-danger/5 text-danger flex flex-col items-center text-center">
+                <p className="font-semibold mb-2">We couldn't load books.</p>
+                <p className="text-sm opacity-80">Please refresh the page in a moment.</p>
               </div>
             ) : !data?.books.length ? (
-              <div className="p-12 rounded-xl border border-dashed text-center">
-                <p className="text-muted-foreground">No books match those filters yet.</p>
-                <Button variant="link" asChild><Link to="/shop">Clear filters</Link></Button>
+              <div className="p-16 rounded-xl border border-dashed flex flex-col items-center justify-center text-center bg-card shadow-sm h-full min-h-[400px]">
+                <div className="h-20 w-20 rounded-full bg-muted flex items-center justify-center mb-6">
+                  <Search className="h-10 w-10 text-muted-foreground opacity-50" />
+                </div>
+                <h3 className="text-2xl font-display font-bold text-foreground mb-2">Book is not available at this moment</h3>
+                <p className="text-muted-foreground mb-8 max-w-md">We couldn't find any books matching your current filters. But we can get it for you!</p>
+                
+                <a 
+                  href="https://chat.whatsapp.com/LNR1VGz6bEHDYmuPXfYGFi?mode=hqrc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 bg-[#25D366] text-white font-bold hover:bg-[#20b858] transition-colors shadow-lg hover:shadow-xl hover:-translate-y-1 transform duration-300"
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Request to us
+                </a>
+                
+                <Button variant="link" className="mt-6 text-muted-foreground" onClick={() => navigate({ search: {} as any })}>
+                  Clear all filters
+                </Button>
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="mb-6 flex justify-between items-center text-sm text-muted-foreground">
+                  <span>Showing {(page * PAGE_SIZE) + 1}-{Math.min((page + 1) * PAGE_SIZE, data.count)} of {data.count} results</span>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
                   {data.books.map((b) => <BookCard key={b.id} book={b} />)}
                 </div>
-                <div className="mt-8 flex justify-between items-center">
+                <div className="mt-12 flex justify-center items-center gap-4 border-t pt-8">
                   <Button variant="outline" disabled={page === 0} onClick={() => setPage((p) => p - 1)}>Previous</Button>
-                  <span className="text-sm text-muted-foreground">Page {page + 1} of {Math.max(1, Math.ceil(data.count / PAGE_SIZE))}</span>
+                  <span className="text-sm font-semibold">Page {page + 1} of {Math.max(1, Math.ceil(data.count / PAGE_SIZE))}</span>
                   <Button variant="outline" disabled={(page + 1) * PAGE_SIZE >= data.count} onClick={() => setPage((p) => p + 1)}>Next</Button>
                 </div>
               </>
@@ -156,6 +228,6 @@ function Shop() {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

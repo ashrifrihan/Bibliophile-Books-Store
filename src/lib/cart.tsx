@@ -61,4 +61,4 @@ export function useCart() {
   return c;
 }
 
-export const fmt = (n: number) => `$${n.toFixed(2)}`;
+export const fmt = (n: number) => `Rs.${n.toFixed(2)}`;
