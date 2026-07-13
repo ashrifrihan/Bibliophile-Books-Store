@@ -114,7 +114,7 @@ function BookPage() {
               <img 
                 src={book.cover_url} 
                 alt={`Cover of ${book.title}`} 
-                className="w-full h-full object-contain transition-transform duration-700 hover:scale-105"
+                className="w-full h-full object-cover rounded-xl transition-transform duration-700 hover:scale-105"
               />
             ) : (
               <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground rounded-lg shadow-inner">
