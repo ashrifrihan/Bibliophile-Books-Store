@@ -26,7 +26,7 @@ export function HorizontalBookCard({ book }: { book: Book }) {
       {/* Content Side */}
       <div className="flex-1 p-4 md:p-6 flex flex-col justify-between">
         <div>
-          <h3 className="font-display font-semibold text-xl md:text-2xl text-[#1e3a5f] leading-tight mb-1 truncate">
+          <h3 className="font-display font-semibold text-xl md:text-2xl text-primary leading-tight mb-1 truncate">
             {book.title}
           </h3>
           <p className="text-sm text-muted-foreground mb-3 line-clamp-3 leading-relaxed">
@@ -38,7 +38,7 @@ export function HorizontalBookCard({ book }: { book: Book }) {
           <Link
             to="/book/$id"
             params={{ id: book.id }}
-            className="inline-flex items-center justify-center bg-[#f3e8ff] hover:bg-[#e9d5ff] text-[#6b21a8] text-sm font-semibold px-6 py-2 rounded-full transition-colors"
+            className="inline-flex items-center justify-center bg-primary-soft hover:bg-primary-soft/80 text-primary text-sm font-semibold px-6 py-2 rounded-full transition-colors"
           >
             Read More
           </Link>

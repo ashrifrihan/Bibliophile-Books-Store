@@ -89,7 +89,7 @@ export function Header() {
           <div className="h-9 w-9 rounded-lg bg-primary text-primary-foreground grid place-items-center shadow-md">
             <BookOpen className="h-5 w-5" />
           </div>
-          <span className="font-display font-bold text-2xl tracking-tight text-[#1e3a5f]">Bibliophile</span>
+          <span className="font-display font-bold text-2xl tracking-tight text-primary">Bibliophile</span>
         </Link>
 
         {/* Desktop Search */}
@@ -226,7 +226,7 @@ export function Header() {
         </form>
       </div>
 
-      <nav className="container-page pb-3 flex items-center gap-6 md:gap-8 text-sm font-semibold overflow-x-auto text-[#1e3a5f] whitespace-nowrap [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <nav className="container-page pb-3 flex items-center gap-6 md:gap-8 text-sm font-semibold overflow-x-auto text-primary whitespace-nowrap [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <Link to="/" className="hover:text-primary transition-colors hover:underline underline-offset-4 decoration-2 decoration-primary/30">Home</Link>
         <Link to="/shop" className="hover:text-primary transition-colors hover:underline underline-offset-4 decoration-2 decoration-primary/30">Shop</Link>
         <Link to="/shop" search={{ mode: "rent" } as any} className="hover:text-primary transition-colors hover:underline underline-offset-4 decoration-2 decoration-primary/30">Rentals</Link>

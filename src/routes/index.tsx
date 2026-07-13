@@ -121,15 +121,16 @@ function Home() {
       <Header />
       <main>
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28">
+        <section className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28 bg-gradient-to-br from-primary-soft/30 via-background to-accent-soft/20">
           <div className="absolute inset-0 z-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none" />
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3" />
           
           <div className="container-page relative z-10 grid lg:grid-cols-12 gap-8 md:gap-12 items-center">
             <div className="lg:col-span-6 xl:col-span-7 text-center md:text-left flex flex-col items-center md:items-start mx-auto md:mx-0 py-10">
               <h1 className="hero-element font-display font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem] leading-[1.05] tracking-tight text-foreground">
-                Biggest bookstore
-                <br /> in Sri Lanka
+                Biggest <span className="text-primary">bookstore</span>
+                <br /> in <span className="text-accent">Sri Lanka</span>
               </h1>
               <p className="hero-element mt-6 text-lg sm:text-xl text-muted-foreground max-w-lg">
                 We deliver books island-wide. Over 10,000+ books in stock.
@@ -229,7 +230,7 @@ function Home() {
         {/* Trending */}
         <section className="container-page pb-20">
           <div className="flex items-end justify-between mb-8 border-b pb-4">
-            <h2 className="text-2xl font-display font-bold text-[#1e3a5f]">Trending on Bibliophile</h2>
+            <h2 className="text-2xl font-display font-bold text-primary">Trending on Bibliophile</h2>
             <Link to="/shop" className="text-sm font-semibold text-muted-foreground hover:text-primary flex items-center">
               View all <ArrowRight className="ml-1 h-3 w-3" />
             </Link>
@@ -251,7 +252,7 @@ function Home() {
         
         {/* Top Categories */}
         <section className="container-page pb-20 text-center">
-           <h2 className="text-2xl font-display font-bold text-[#1e3a5f] mb-10">Top Categories</h2>
+           <h2 className="text-2xl font-display font-bold text-primary mb-10">Top Categories</h2>
            <div className="flex flex-wrap justify-center gap-8">
             {CATEGORY_META.map((c, i) => (
               <Link

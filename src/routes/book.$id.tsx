@@ -55,7 +55,7 @@ function BookPage() {
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1 flex flex-col items-center justify-center bg-[#F8F9FA] py-32">
-          <h1 className="text-4xl font-display font-bold text-[#1e3a5f]">Book not found</h1>
+          <h1 className="text-4xl font-display font-bold text-primary">Book not found</h1>
           <p className="mt-4 text-muted-foreground text-lg">The title you are looking for may have been removed.</p>
           <Button asChild className="mt-8 rounded-full px-8"><Link to="/shop">Back to collection</Link></Button>
         </main>

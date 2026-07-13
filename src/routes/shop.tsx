@@ -70,7 +70,7 @@ function Shop() {
       <div className="bg-muted/30 border-b">
         <div className="container-page py-6 md:py-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <div>
-            <h1 className="text-3xl font-display font-bold text-[#1e3a5f]">Shop Collection</h1>
+            <h1 className="text-3xl font-display font-bold text-primary">Shop Collection</h1>
             <p className="text-muted-foreground mt-1">{data?.count ?? 0} titles available for you</p>
           </div>
         </div>
@@ -79,7 +79,7 @@ function Shop() {
       <main className="container-page py-10">
         {/* Horizontal Filters Bar */}
         <div className="bg-card rounded-xl border border-border p-4 shadow-sm mb-10 flex flex-wrap items-center gap-4">
-          <div className="flex items-center gap-2 font-bold text-[#1e3a5f] border-r pr-4 mr-2">
+          <div className="flex items-center gap-2 font-bold text-primary border-r pr-4 mr-2">
             <Filter className="h-5 w-5 text-primary" /> Filters
           </div>
 
