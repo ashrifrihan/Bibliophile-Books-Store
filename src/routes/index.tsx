@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { BookCard } from "@/components/site/BookCard";
+import { Marquee } from "@/components/site/Marquee";
 import type { Book } from "@/lib/types";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -159,8 +160,24 @@ function Home() {
           </div>
         </section>
 
+        {/* Scrolling Features Marquee */}
+        <section className="bg-primary text-primary-foreground py-4 border-y border-primary-foreground/10 overflow-hidden">
+          <Marquee pauseOnHover className="[--duration:20s]" repeat={5}>
+            <div className="flex items-center gap-8 px-4 font-bold tracking-widest uppercase text-sm">
+              <span className="flex items-center gap-2"><BookOpen className="h-4 w-4"/> 10,000+ Books</span>
+              <span>•</span>
+              <span className="flex items-center gap-2"><Star className="h-4 w-4"/> Top Rated Authors</span>
+              <span>•</span>
+              <span className="flex items-center gap-2"><Feather className="h-4 w-4"/> Island-wide Delivery</span>
+              <span>•</span>
+              <span className="flex items-center gap-2"><Wand2 className="h-4 w-4"/> Rare Collections</span>
+              <span>•</span>
+            </div>
+          </Marquee>
+        </section>
+
         {/* Promo Banners */}
-        <section className="container-page pb-16">
+        <section className="container-page py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link to="/shop" className="promo-banner relative overflow-hidden rounded-xl bg-[#e73a3a] p-8 min-h-[220px] flex items-center justify-between group">
               <div className="relative z-10">
