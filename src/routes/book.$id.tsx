@@ -104,12 +104,12 @@ function BookPage() {
       <main className="flex-1 grid md:grid-cols-2 min-h-[80vh]">
         
         {/* Left Side - Image (White Background) */}
-        <div className="bg-white p-8 md:p-16 flex flex-col items-center justify-center relative">
-          <Link to="/shop" className="absolute top-8 left-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+        <div className="bg-white p-6 md:p-16 flex flex-col items-center justify-center relative">
+          <Link to="/shop" className="absolute top-6 left-6 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             <ArrowLeft className="h-4 w-4" /> Back to collection
           </Link>
           
-          <div className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] relative flex items-center justify-center drop-shadow-2xl">
+          <div className="w-full max-w-[280px] aspect-square md:max-w-none md:w-[400px] md:h-[400px] mt-10 md:mt-0 relative flex items-center justify-center drop-shadow-2xl">
             {book.cover_url ? (
               <img 
                 src={book.cover_url} 
@@ -125,31 +125,31 @@ function BookPage() {
         </div>
 
         {/* Right Side - Details (Light Gray Background) */}
-        <div className="bg-[#F4F5F8] p-8 md:p-16 lg:px-24 flex flex-col justify-center">
+        <div className="bg-[#F4F5F8] p-6 sm:p-8 md:p-16 lg:px-24 flex flex-col justify-center">
           
           <div className="uppercase tracking-widest text-xs font-bold text-muted-foreground mb-4">
             {book.category} BOOKS
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-extrabold text-[#111827] leading-tight mb-4 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#111827] leading-tight mb-4 tracking-tight">
             {book.title}
           </h1>
           
-          <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium mb-8">
+          <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground font-medium mb-8">
             <Star className="h-4 w-4 fill-warning text-warning" />
             <span className="text-foreground font-bold">{book.rating.toFixed(1)}</span>
             <span>· 15 Reviews</span>
-            <span className="mx-2">•</span>
-            <span>by <span className="text-foreground underline decoration-muted-foreground/30 underline-offset-4">{book.author}</span></span>
+            <span className="hidden sm:inline mx-2">•</span>
+            <span className="w-full sm:w-auto mt-2 sm:mt-0">by <span className="text-foreground underline decoration-muted-foreground/30 underline-offset-4">{book.author}</span></span>
           </div>
 
-          <p className="text-muted-foreground leading-relaxed mb-8 max-w-md">
+          <p className="text-muted-foreground leading-relaxed mb-8 max-w-md text-sm sm:text-base">
             {book.description || "A wonderful addition to your reading collection. Beautifully bound and ready to be explored."}
           </p>
 
           {/* Mode Selector matching design's attributes */}
           {book.mode === "both" && (
-            <div className="flex gap-4 mb-8">
+            <div className="flex flex-wrap gap-3 sm:gap-4 mb-8">
               <button 
                 className={`px-4 py-2 text-sm font-bold rounded-lg border-2 transition-all ${mode === "sale" ? "border-[#111827] text-[#111827]" : "border-transparent bg-white text-muted-foreground hover:bg-white/80"}`}
                 onClick={() => setMode("sale")}
@@ -166,18 +166,18 @@ function BookPage() {
           )}
 
           {activeMode === "rent" && (
-            <div className="flex gap-4 mb-8 bg-white p-2 rounded-lg w-fit border border-border/50">
-              <div className="px-4 py-2 border-r border-border/50">
+            <div className="flex gap-4 mb-8 bg-white p-2 rounded-lg w-full sm:w-fit border border-border/50">
+              <div className="px-4 py-2 border-r border-border/50 flex-1 sm:flex-none">
                 <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">DURATION</div>
                 <select
-                  className="bg-transparent border-none outline-none font-bold text-[#111827] cursor-pointer focus:ring-0 p-0 text-sm"
+                  className="bg-transparent border-none outline-none font-bold text-[#111827] cursor-pointer focus:ring-0 p-0 text-sm w-full"
                   value={weeks}
                   onChange={(e) => setWeeks(Number(e.target.value))}
                 >
                   {[1, 2, 3, 4, 6, 8].map((w) => <option key={w} value={w}>{w} {w === 1 ? 'Week' : 'Weeks'}</option>)}
                 </select>
               </div>
-              <div className="px-4 py-2">
+              <div className="px-4 py-2 flex-1 sm:flex-none">
                 <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">RATE</div>
                 <div className="font-bold text-sm text-[#111827]">{fmt(book.rent_price_per_week)}/wk</div>
               </div>
@@ -206,14 +206,14 @@ function BookPage() {
             </div>
           </div>
 
-          <div className="flex gap-4 max-w-md">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md">
             <Button
               onClick={addToCart}
               variant="outline"
               disabled={soldOut || (activeMode === "sale" && !canBuy) || (activeMode === "rent" && !canRent)}
               className="flex-1 rounded-xl h-14 text-sm font-extrabold tracking-wide uppercase bg-white border-2 border-transparent shadow-sm hover:border-[#111827]/10 text-[#111827]"
             >
-              {activeMode === "rent" ? "ADD TO CART (RENT)" : "ADD TO CART"}
+              {activeMode === "rent" ? "CART (RENT)" : "ADD TO CART"}
             </Button>
             
             <Button

@@ -84,7 +84,7 @@ export function Header() {
           <div className="opacity-90 font-medium">Free shipping on orders over Rs.5000</div>
         </div>
       </div>
-      <div className="container-page flex items-center gap-3 md:gap-6 py-4">
+      <div className="container-page flex items-center justify-between gap-3 md:gap-6 py-4">
         <Link to="/" className="flex items-center gap-2 shrink-0">
           <div className="h-9 w-9 rounded-lg bg-primary text-primary-foreground grid place-items-center shadow-md">
             <BookOpen className="h-5 w-5" />
@@ -92,6 +92,7 @@ export function Header() {
           <span className="font-display font-bold text-2xl tracking-tight text-[#1e3a5f]">Bibliophile</span>
         </Link>
 
+        {/* Desktop Search */}
         <div className="hidden md:flex flex-1 max-w-xl mx-auto relative" ref={searchRef}>
           <form onSubmit={onSearch} className="w-full">
             <div className="relative w-full">
@@ -158,7 +159,7 @@ export function Header() {
           )}
         </div>
 
-        <div className="flex items-center gap-2 ml-auto shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Account" className="rounded-full hover:bg-muted/80">
@@ -211,7 +212,21 @@ export function Header() {
           </Button>
         </div>
       </div>
-      <nav className="container-page pb-4 flex items-center gap-8 text-sm font-semibold overflow-x-auto text-[#1e3a5f]">
+
+      {/* Mobile Search */}
+      <div className="md:hidden container-page pb-3">
+        <form onSubmit={onSearch} className="w-full relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search books…"
+            className="pl-10 pr-4 h-10 rounded-full bg-muted/40 border border-border shadow-sm w-full text-sm"
+          />
+        </form>
+      </div>
+
+      <nav className="container-page pb-3 flex items-center gap-6 md:gap-8 text-sm font-semibold overflow-x-auto text-[#1e3a5f] whitespace-nowrap [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <Link to="/" className="hover:text-primary transition-colors hover:underline underline-offset-4 decoration-2 decoration-primary/30">Home</Link>
         <Link to="/shop" className="hover:text-primary transition-colors hover:underline underline-offset-4 decoration-2 decoration-primary/30">Shop</Link>
         <Link to="/shop" search={{ mode: "rent" } as any} className="hover:text-primary transition-colors hover:underline underline-offset-4 decoration-2 decoration-primary/30">Rentals</Link>
