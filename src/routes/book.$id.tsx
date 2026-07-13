@@ -2,13 +2,11 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Star, ArrowLeft, ShoppingBag, Clock, CheckCircle2, ShieldCheck, Truck } from "lucide-react";
+import { Star, ArrowLeft, ShoppingBag, Clock, Minus, Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCart, fmt } from "@/lib/cart";
 import type { Book } from "@/lib/types";
 
@@ -22,6 +20,7 @@ function BookPage() {
   const { add } = useCart();
   const [mode, setMode] = useState<"sale" | "rent">("sale");
   const [weeks, setWeeks] = useState(2);
+  const [quantity, setQuantity] = useState(1);
 
   const { data: book, isLoading, error } = useQuery({
     queryKey: ["book", id],
@@ -34,16 +33,16 @@ function BookPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
+      <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="container-page py-16 flex-1">
-          <div className="grid md:grid-cols-[1fr_1fr] lg:grid-cols-[400px_1fr] gap-12">
-            <div className="animate-pulse h-[500px] rounded-2xl bg-muted/50" />
-            <div className="space-y-6">
-              <div className="animate-pulse h-10 w-3/4 rounded bg-muted/50" />
-              <div className="animate-pulse h-6 w-1/3 rounded bg-muted/50" />
-              <div className="animate-pulse h-32 w-full rounded bg-muted/50" />
-            </div>
+        <main className="flex-1 grid md:grid-cols-2">
+          <div className="bg-white p-12 flex items-center justify-center">
+            <div className="animate-pulse h-[400px] w-[300px] bg-muted rounded-xl" />
+          </div>
+          <div className="bg-[#F8F9FA] p-12 space-y-6">
+            <div className="animate-pulse h-8 w-1/4 bg-muted rounded" />
+            <div className="animate-pulse h-12 w-3/4 bg-muted rounded" />
+            <div className="animate-pulse h-32 w-full bg-muted rounded" />
           </div>
         </main>
         <Footer />
@@ -53,12 +52,12 @@ function BookPage() {
   
   if (error || !book) {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
+      <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="container-page py-32 text-center flex-1 flex flex-col items-center justify-center">
+        <main className="flex-1 flex flex-col items-center justify-center bg-[#F8F9FA] py-32">
           <h1 className="text-4xl font-display font-bold text-[#1e3a5f]">Book not found</h1>
-          <p className="mt-4 text-muted-foreground text-lg max-w-md">The title you are looking for may have been removed or the link is broken.</p>
-          <Button asChild className="mt-8 rounded-full px-8 py-6 text-lg"><Link to="/shop">Back to collection</Link></Button>
+          <p className="mt-4 text-muted-foreground text-lg">The title you are looking for may have been removed.</p>
+          <Button asChild className="mt-8 rounded-full px-8"><Link to="/shop">Back to collection</Link></Button>
         </main>
         <Footer />
       </div>
@@ -68,179 +67,177 @@ function BookPage() {
   const canBuy = book.mode !== "rent" && book.quantity_available > 0;
   const canRent = book.mode !== "sell" && book.quantity_available > 0;
   const soldOut = book.quantity_available <= 0;
-  const stockLabel = soldOut
-    ? "Out of stock"
-    : book.quantity_available <= 3
-    ? `Only ${book.quantity_available} left in stock!`
-    : "In Stock - Ready to ship";
 
   const addToCart = () => {
     if (mode === "sale" && !canBuy) return toast.error("This copy is not available to buy.");
     if (mode === "rent" && !canRent) return toast.error("This copy is not available to rent.");
-    add({
-      book_id: book.id,
-      title: book.title,
-      author: book.author,
-      cover_url: book.cover_url,
-      type: mode,
-      unit_price: mode === "sale" ? book.sell_price : book.rent_price_per_week,
-      rent_weeks: mode === "rent" ? weeks : undefined,
-    });
-    toast.success("Added to cart successfully");
+    
+    // Add multiple if quantity > 1 (basic implementation)
+    for (let i = 0; i < quantity; i++) {
+      add({
+        book_id: book.id,
+        title: book.title,
+        author: book.author,
+        cover_url: book.cover_url,
+        type: mode,
+        unit_price: mode === "sale" ? book.sell_price : book.rent_price_per_week,
+        rent_weeks: mode === "rent" ? weeks : undefined,
+      });
+    }
+    toast.success(`Added ${quantity} ${quantity === 1 ? 'copy' : 'copies'} to cart`);
+  };
+
+  const buyNow = () => {
+    addToCart();
     navigate({ to: "/cart" });
   };
 
-  // Determine initial mode based on book availability if needed, but keeping state logic intact.
   const isRentOnly = book.mode === "rent";
   const isBuyOnly = book.mode === "sell";
   const activeMode = isRentOnly ? "rent" : isBuyOnly ? "sale" : mode;
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] flex flex-col">
+    <div className="min-h-screen flex flex-col font-sans">
       <Header />
       
-      {/* Subtle Breadcrumb Header */}
-      <div className="bg-white border-b py-4">
-        <div className="container-page">
-          <Link to="/shop" className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+      {/* Split Screen Layout */}
+      <main className="flex-1 grid md:grid-cols-2 min-h-[80vh]">
+        
+        {/* Left Side - Image (White Background) */}
+        <div className="bg-white p-8 md:p-16 flex flex-col items-center justify-center relative">
+          <Link to="/shop" className="absolute top-8 left-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             <ArrowLeft className="h-4 w-4" /> Back to collection
           </Link>
-        </div>
-      </div>
-
-      <main className="container-page py-12 md:py-20 flex-1">
-        <div className="grid md:grid-cols-[1fr_1fr] lg:grid-cols-[450px_1fr] gap-12 lg:gap-20">
           
-          {/* Left Column - Image */}
-          <div className="flex flex-col items-center">
-            <div className="relative w-full max-w-sm aspect-[2/3] rounded-xl overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
-              {book.cover_url ? (
-                <img src={book.cover_url} alt={`Cover of ${book.title}`} className="h-full w-full object-cover" />
-              ) : (
-                <div className="h-full w-full bg-muted flex items-center justify-center text-muted-foreground">No Cover Image</div>
-              )}
-            </div>
-            
-            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-muted-foreground font-medium">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="h-5 w-5 text-primary/80" /> Authentic
+          <div className="w-full max-w-md relative flex items-center justify-center drop-shadow-2xl">
+            {book.cover_url ? (
+              <img 
+                src={book.cover_url} 
+                alt={`Cover of ${book.title}`} 
+                className="max-h-[500px] w-auto object-contain transition-transform duration-700 hover:scale-105"
+              />
+            ) : (
+              <div className="h-[400px] w-[280px] bg-muted flex items-center justify-center text-muted-foreground rounded-lg shadow-inner">
+                No Cover Image
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-success/80" /> Quality Checked
+            )}
+          </div>
+          
+          {/* Mock Thumbnails below image to match requested design */}
+          <div className="flex gap-4 mt-12 justify-center opacity-80 hover:opacity-100 transition-opacity">
+            {book.cover_url && [1, 2, 3].map((i) => (
+              <div key={i} className="h-16 w-16 bg-[#F8F9FA] rounded-xl overflow-hidden p-1 cursor-pointer hover:ring-2 hover:ring-primary/50 transition-all">
+                <img src={book.cover_url} alt="" className="h-full w-full object-contain" />
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Side - Details (Light Gray Background) */}
+        <div className="bg-[#F4F5F8] p-8 md:p-16 lg:px-24 flex flex-col justify-center">
+          
+          <div className="uppercase tracking-widest text-xs font-bold text-muted-foreground mb-4">
+            {book.category} BOOKS
+          </div>
+          
+          <h1 className="text-4xl md:text-5xl font-extrabold text-[#111827] leading-tight mb-4 tracking-tight">
+            {book.title}
+          </h1>
+          
+          <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium mb-8">
+            <Star className="h-4 w-4 fill-warning text-warning" />
+            <span className="text-foreground font-bold">{book.rating.toFixed(1)}</span>
+            <span>· 15 Reviews</span>
+            <span className="mx-2">•</span>
+            <span>by <span className="text-foreground underline decoration-muted-foreground/30 underline-offset-4">{book.author}</span></span>
           </div>
 
-          {/* Right Column - Details & Actions */}
-          <div className="flex flex-col">
-            <div className="mb-4">
-              <Badge className="bg-primary/10 text-primary hover:bg-primary/20 border-none font-semibold px-3 py-1 text-xs uppercase tracking-wider mb-4">
-                {book.category}
-              </Badge>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#1e3a5f] leading-tight mb-2">
-                {book.title}
-              </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground font-medium">
-                by <span className="text-foreground">{book.author}</span>
-              </p>
+          <p className="text-muted-foreground leading-relaxed mb-8 max-w-md">
+            {book.description || "A wonderful addition to your reading collection. Beautifully bound and ready to be explored."}
+          </p>
+
+          {/* Mode Selector matching design's attributes */}
+          {book.mode === "both" && (
+            <div className="flex gap-4 mb-8">
+              <button 
+                className={`px-4 py-2 text-sm font-bold rounded-lg border-2 transition-all ${mode === "sale" ? "border-[#111827] text-[#111827]" : "border-transparent bg-white text-muted-foreground hover:bg-white/80"}`}
+                onClick={() => setMode("sale")}
+              >
+                Buy Book
+              </button>
+              <button 
+                className={`px-4 py-2 text-sm font-bold rounded-lg border-2 transition-all ${mode === "rent" ? "border-[#111827] text-[#111827]" : "border-transparent bg-white text-muted-foreground hover:bg-white/80"}`}
+                onClick={() => setMode("rent")}
+              >
+                Rent Book
+              </button>
             </div>
+          )}
 
-            <div className="flex flex-wrap items-center gap-4 text-sm mb-8 pb-8 border-b">
-              <div className="flex items-center gap-1.5 bg-warning/10 text-warning px-2.5 py-1 rounded-full font-bold">
-                <Star className="h-4 w-4 fill-warning text-warning" />
-                {book.rating.toFixed(1)} Rating
-              </div>
-              <span className="text-border">|</span>
-              {book.isbn && (
-                <>
-                  <span className="text-muted-foreground">ISBN: <span className="text-foreground font-medium">{book.isbn}</span></span>
-                  <span className="text-border">|</span>
-                </>
-              )}
-              <span className={`font-semibold ${soldOut ? "text-danger" : book.quantity_available <= 3 ? "text-warning" : "text-success"}`}>
-                {stockLabel}
-              </span>
-            </div>
-
-            <div className="prose prose-sm md:prose-base prose-slate max-w-none text-muted-foreground leading-relaxed mb-10">
-              <p>{book.description}</p>
-            </div>
-
-            {/* Action Box */}
-            <div className="bg-white rounded-3xl p-8 shadow-xl border border-border/50 mt-auto relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-primary" />
-              
-              {book.mode === "both" && (
-                <div className="flex bg-muted/50 p-1 rounded-2xl mb-8">
-                  <button 
-                    className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${mode === "sale" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-                    onClick={() => setMode("sale")}
-                  >
-                    Buy New Book
-                  </button>
-                  <button 
-                    className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${mode === "rent" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-                    onClick={() => setMode("rent")}
-                  >
-                    Rent Book
-                  </button>
-                </div>
-              )}
-
-              <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-                {activeMode === "sale" ? (
-                  <div>
-                    <p className="text-sm text-muted-foreground font-medium mb-1">Purchase Price</p>
-                    <div className="flex items-end gap-3">
-                      <span className="text-4xl font-extrabold text-[#1e3a5f]">{fmt(book.sell_price)}</span>
-                      {book.original_price && book.original_price > book.sell_price && (
-                        <span className="text-lg text-muted-foreground line-through mb-1">{fmt(book.original_price)}</span>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="w-full">
-                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-                      <div>
-                        <p className="text-sm text-muted-foreground font-medium mb-1">Rental Price</p>
-                        <div className="flex items-baseline gap-2">
-                          <span className="text-4xl font-extrabold text-[#1e3a5f]">{fmt(book.rent_price_per_week)}</span>
-                          <span className="text-muted-foreground font-medium">/ week</span>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-muted/30 rounded-xl p-3 border">
-                        <label className="text-xs text-muted-foreground font-semibold block mb-1 uppercase tracking-wider">Duration</label>
-                        <select
-                          className="w-full bg-transparent border-none outline-none font-bold text-foreground cursor-pointer focus:ring-0 p-0"
-                          value={weeks}
-                          onChange={(e) => setWeeks(Number(e.target.value))}
-                        >
-                          {[1, 2, 3, 4, 6, 8].map((w) => <option key={w} value={w}>{w} {w === 1 ? 'Week' : 'Weeks'} (Total: {fmt(book.rent_price_per_week * w)})</option>)}
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  onClick={addToCart}
-                  disabled={soldOut || (activeMode === "sale" && !canBuy) || (activeMode === "rent" && !canRent)}
-                  className="flex-1 rounded-2xl h-14 text-base font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:-translate-y-0.5 transition-all"
+          {activeMode === "rent" && (
+            <div className="flex gap-4 mb-8 bg-white p-2 rounded-lg w-fit border border-border/50">
+              <div className="px-4 py-2 border-r border-border/50">
+                <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">DURATION</div>
+                <select
+                  className="bg-transparent border-none outline-none font-bold text-[#111827] cursor-pointer focus:ring-0 p-0 text-sm"
+                  value={weeks}
+                  onChange={(e) => setWeeks(Number(e.target.value))}
                 >
-                  {activeMode === "rent" ? <Clock className="mr-2 h-5 w-5" /> : <ShoppingBag className="mr-2 h-5 w-5" />}
-                  {soldOut ? "Currently Out of Stock" : activeMode === "rent" ? "Rent This Book" : "Add to Cart"}
-                </Button>
+                  {[1, 2, 3, 4, 6, 8].map((w) => <option key={w} value={w}>{w} {w === 1 ? 'Week' : 'Weeks'}</option>)}
+                </select>
               </div>
-              
-              <div className="mt-6 flex items-center justify-center gap-2 text-xs font-medium text-muted-foreground">
-                <Truck className="h-4 w-4" /> Free shipping on orders over Rs.5000
+              <div className="px-4 py-2">
+                <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">RATE</div>
+                <div className="font-bold text-sm text-[#111827]">{fmt(book.rent_price_per_week)}/wk</div>
               </div>
             </div>
-            
+          )}
+
+          <div className="text-3xl font-extrabold text-[#111827] mb-8 font-sans">
+            {activeMode === "sale" ? fmt(book.sell_price) : fmt(book.rent_price_per_week * weeks)}
           </div>
+
+          <div className="flex items-center gap-6 mb-8">
+            <div className="flex items-center border-2 border-border/60 rounded-lg bg-white overflow-hidden">
+              <button 
+                className="w-10 h-10 flex items-center justify-center text-muted-foreground hover:bg-muted/50 transition-colors"
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              >
+                <Minus className="h-4 w-4" />
+              </button>
+              <span className="w-10 text-center font-bold text-[#111827] text-sm">{quantity}</span>
+              <button 
+                className="w-10 h-10 flex items-center justify-center text-white bg-[#111827] hover:bg-black transition-colors"
+                onClick={() => setQuantity(Math.min(book.quantity_available, quantity + 1))}
+              >
+                <Plus className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex gap-4 max-w-md">
+            <Button
+              onClick={addToCart}
+              variant="outline"
+              disabled={soldOut || (activeMode === "sale" && !canBuy) || (activeMode === "rent" && !canRent)}
+              className="flex-1 rounded-xl h-14 text-sm font-extrabold tracking-wide uppercase bg-white border-2 border-transparent shadow-sm hover:border-[#111827]/10 text-[#111827]"
+            >
+              {activeMode === "rent" ? "ADD TO CART (RENT)" : "ADD TO CART"}
+            </Button>
+            
+            <Button
+              onClick={buyNow}
+              disabled={soldOut || (activeMode === "sale" && !canBuy) || (activeMode === "rent" && !canRent)}
+              className="flex-1 rounded-xl h-14 text-sm font-extrabold tracking-wide uppercase bg-[#111827] text-white hover:bg-black hover:shadow-xl hover:shadow-black/20 transition-all"
+            >
+              BUY NOW
+            </Button>
+          </div>
+          
+          {soldOut && (
+            <p className="mt-4 text-sm font-bold text-danger">Currently out of stock.</p>
+          )}
+
         </div>
       </main>
       <Footer />
