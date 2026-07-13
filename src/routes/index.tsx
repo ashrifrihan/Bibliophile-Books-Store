@@ -54,17 +54,17 @@ function Home() {
           <div className="absolute inset-0 z-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none" />
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
           
-          <div className="container-page relative z-10 grid md:grid-cols-2 gap-10 items-center">
+          <div className="container-page relative z-10 grid md:grid-cols-2 gap-8 md:gap-10 items-center">
             <div className="text-center md:text-left flex flex-col items-center md:items-start max-w-xl mx-auto md:mx-0">
-              <h1 className="font-display font-bold text-5xl sm:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-foreground">
+              <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-7xl leading-[1.1] tracking-tight text-foreground">
                 Biggest bookstore
-                <br /> in Europe
+                <br /> in Sri Lanka
               </h1>
-              <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-md">
-                We deliver books all over the world. Over 10,000+ books in stock.
+              <p className="mt-4 sm:mt-6 text-base sm:text-lg text-muted-foreground max-w-md">
+                We deliver books island-wide. Over 10,000+ books in stock.
               </p>
-              <div className="mt-8">
-                <Button asChild size="lg" className="rounded-sm bg-accent hover:bg-accent/90 text-white font-bold px-8 py-6 text-sm">
+              <div className="mt-6 sm:mt-8">
+                <Button asChild size="lg" className="rounded-sm bg-accent hover:bg-accent/90 text-white font-bold px-6 sm:px-8 py-6 text-xs sm:text-sm">
                   <Link to="/shop">
                     MEET OUR BESTSELLER <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
@@ -72,16 +72,16 @@ function Home() {
               </div>
             </div>
 
-            <div className="relative mt-12 md:mt-0 flex justify-center md:justify-end">
-              <div className="relative w-full max-w-[450px] aspect-[4/5] flex items-center justify-center">
+            <div className="relative mt-10 md:mt-0 flex justify-center md:justify-end overflow-hidden sm:overflow-visible">
+              <div className="relative w-full max-w-[300px] sm:max-w-[450px] aspect-[4/5] flex items-center justify-center">
                 {/* Book stack layout imitating the image */}
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-48 shadow-[var(--shadow-elevated)] z-0 rotate-6 transform transition-transform hover:rotate-12 duration-500">
+                <div className="absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 w-32 sm:w-48 shadow-[var(--shadow-elevated)] z-0 rotate-6 transform transition-transform hover:rotate-12 duration-500">
                   <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400" alt="Book 1" className="w-full h-auto rounded-sm" />
                 </div>
-                <div className="absolute left-0 bottom-10 w-40 shadow-[var(--shadow-elevated)] z-10 -rotate-6 transform transition-transform hover:-rotate-12 duration-500">
+                <div className="absolute left-0 sm:-left-4 bottom-10 w-28 sm:w-40 shadow-[var(--shadow-elevated)] z-10 -rotate-6 transform transition-transform hover:-rotate-12 duration-500">
                   <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=400" alt="Book 2" className="w-full h-auto rounded-sm" />
                 </div>
-                <div className="relative z-20 w-64 shadow-[var(--shadow-elevated)] transform transition-transform hover:-translate-y-4 duration-500">
+                <div className="relative z-20 w-44 sm:w-64 shadow-[var(--shadow-elevated)] transform transition-transform hover:-translate-y-4 duration-500">
                   <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=400" alt="Book 3" className="w-full h-auto rounded-sm" />
                 </div>
               </div>
