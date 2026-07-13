@@ -121,40 +121,64 @@ function Home() {
       <Header />
       <main>
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28 bg-gradient-to-br from-primary-soft/30 via-background to-accent-soft/20">
+        <section className="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32 bg-gradient-to-br from-[#0c3e35] via-[#115448] to-[#176658] text-white">
+          {/* Background Patterns & Blobs */}
           <div className="absolute inset-0 z-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none" />
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3" />
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 pointer-events-none" />
           
-          <div className="container-page relative z-10 grid lg:grid-cols-12 gap-8 md:gap-12 items-center">
-            <div className="lg:col-span-6 xl:col-span-7 text-center md:text-left flex flex-col items-center md:items-start mx-auto md:mx-0 py-10">
-              <h1 className="hero-element font-display font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem] leading-[1.05] tracking-tight text-foreground">
-                Biggest <span className="text-primary">bookstore</span>
+          <div className="container-page relative z-10 grid lg:grid-cols-12 gap-12 md:gap-16 items-center">
+            <div className="lg:col-span-6 xl:col-span-7 text-center md:text-left flex flex-col items-center md:items-start mx-auto md:mx-0">
+              <span className="hero-element inline-block bg-accent/20 text-accent font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-widest mb-6 border border-accent/30 shadow-sm shadow-accent/5">
+                Special Offer
+              </span>
+              <h1 className="hero-element font-display font-bold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] tracking-tight">
+                Biggest bookstore
                 <br /> in <span className="text-accent">Sri Lanka</span>
               </h1>
-              <p className="hero-element mt-6 text-lg sm:text-xl text-muted-foreground max-w-lg">
-                We deliver books island-wide. Over 10,000+ books in stock.
+              <p className="hero-element mt-6 text-lg sm:text-xl text-emerald-100/90 max-w-lg leading-relaxed">
+                We deliver books island-wide. Over 10,000+ books in stock. Find the perfect gift for everyone on your list.
               </p>
               <div className="hero-element mt-8 sm:mt-10">
-                <Button asChild size="lg" className="rounded-sm bg-accent hover:bg-accent/90 text-white font-bold px-8 py-7 text-sm shadow-xl shadow-accent/20 transition-transform hover:-translate-y-1">
+                <Button asChild size="lg" className="rounded-full bg-accent hover:bg-accent/90 text-white font-bold px-8 py-7 text-sm shadow-lg shadow-accent/25 hover:-translate-y-0.5 transition-transform duration-300">
                   <Link to="/shop">
-                    MEET OUR BESTSELLER <ArrowRight className="ml-2 h-5 w-5" />
+                    MEET OUR BESTSELLER <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </div>
             </div>
 
             <div className="lg:col-span-6 xl:col-span-5 relative mt-12 lg:mt-0 flex justify-center items-center h-full">
-              <div className="relative w-full max-w-[400px] md:max-w-[500px] aspect-square flex items-center justify-center">
-                {/* Book stack layout imitating the image */}
-                <div className="hero-book absolute right-4 top-0 w-40 md:w-56 shadow-[var(--shadow-elevated)] z-0 rotate-12 transform hover:rotate-6 transition-transform duration-500 rounded-lg overflow-hidden border-4 border-white">
-                  <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400" alt="Book 1" className="w-full h-auto" />
-                </div>
-                <div className="hero-book absolute left-0 bottom-4 w-36 md:w-48 shadow-[var(--shadow-elevated)] z-10 -rotate-12 transform hover:-rotate-6 transition-transform duration-500 rounded-lg overflow-hidden border-4 border-white">
-                  <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=400" alt="Book 2" className="w-full h-auto" />
-                </div>
-                <div className="hero-book relative z-20 w-52 md:w-72 shadow-2xl transform hover:-translate-y-4 transition-transform duration-500 rounded-lg overflow-hidden border-4 border-white mt-10">
-                  <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=400" alt="Book 3" className="w-full h-auto" />
+              <div className="relative w-full max-w-[450px] aspect-square flex items-center justify-center">
+                {/* Background decorative elements */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-accent/15 to-transparent rounded-full filter blur-2xl opacity-40 pointer-events-none" />
+                
+                {/* Floating SVG Leaves */}
+                <svg className="absolute -top-6 -left-6 w-20 h-20 text-emerald-300/10 pointer-events-none transform -rotate-45" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L7.04,18.5C8.14,19.38 9.5,20 11,20C18,20 20,12 20,12C20,12 19,10.12 17,8M11,18C8.8,18 7,15 7,15C7,15 8.5,12.7 11,12C13.5,11.3 16.5,12 16.5,12C16.5,12 13.2,18 11,18Z" />
+                </svg>
+                <svg className="absolute -bottom-6 -right-6 w-24 h-24 text-emerald-300/10 pointer-events-none transform rotate-45" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L7.04,18.5C8.14,19.38 9.5,20 11,20C18,20 20,12 20,12C20,12 19,10.12 17,8M11,18C8.8,18 7,15 7,15C7,15 8.5,12.7 11,12C13.5,11.3 16.5,12 16.5,12C16.5,12 13.2,18 11,18Z" />
+                </svg>
+                
+                <div className="relative w-full flex flex-col items-center justify-center">
+                  {/* Flat shadows beneath books */}
+                  <div className="absolute w-[240px] sm:w-[300px] h-6 bg-black/40 rounded-full filter blur-md transform translate-y-32" />
+                  
+                  {/* Book 1 (Left tilted) */}
+                  <div className="hero-book absolute w-[170px] sm:w-[210px] aspect-[3/4] shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-sm overflow-hidden border-2 border-white/20 transform -rotate-12 -translate-x-12 translate-y-2 hover:rotate-0 hover:translate-y-0 transition-all duration-500">
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400" alt="Book 1" className="w-full h-full object-cover" />
+                  </div>
+                  
+                  {/* Book 2 (Right tilted) */}
+                  <div className="hero-book absolute w-[170px] sm:w-[210px] aspect-[3/4] shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-sm overflow-hidden border-2 border-white/20 transform rotate-12 translate-x-12 translate-y-1 hover:rotate-0 hover:translate-y-0 transition-all duration-500">
+                    <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=400" alt="Book 2" className="w-full h-full object-cover" />
+                  </div>
+                  
+                  {/* Book 3 (Top straight focus) */}
+                  <div className="hero-book relative w-[180px] sm:w-[220px] aspect-[3/4] shadow-[0_25px_50px_rgba(0,0,0,0.6)] rounded-sm overflow-hidden border-4 border-white transform hover:scale-105 transition-all duration-500 z-10">
+                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=400" alt="Book 3" className="w-full h-full object-cover" />
+                  </div>
                 </div>
               </div>
             </div>
