@@ -12,7 +12,7 @@ import heroImage from "@/assets/hero-books.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Bibliophile Books Store — Buy & Rent Books Online" },
+      { title: "Bibliophile Books Store - Buy & Rent Books Online" },
       { name: "description", content: "The biggest little bookstore for buying and renting your next favorite read. 10,000+ books curated across fiction, fantasy, spirituality, and more." },
       { property: "og:image", content: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1200&h=630&fit=crop" },
     ],
