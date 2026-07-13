@@ -124,34 +124,35 @@ function Home() {
           <div className="absolute inset-0 z-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none" />
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
           
-          <div className="container-page relative z-10 grid md:grid-cols-2 gap-8 md:gap-10 items-center">
-            <div className="text-center md:text-left flex flex-col items-center md:items-start max-w-xl mx-auto md:mx-0">
-              <h1 className="hero-element font-display font-bold text-4xl sm:text-5xl lg:text-7xl leading-[1.1] tracking-tight text-foreground">
+          <div className="container-page relative z-10 grid lg:grid-cols-12 gap-8 md:gap-12 items-center">
+            <div className="lg:col-span-6 xl:col-span-7 text-center md:text-left flex flex-col items-center md:items-start mx-auto md:mx-0 py-10">
+              <h1 className="hero-element font-display font-bold text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem] leading-[1.05] tracking-tight text-foreground">
                 Biggest bookstore
                 <br /> in Sri Lanka
               </h1>
-              <p className="hero-element mt-4 sm:mt-6 text-base sm:text-lg text-muted-foreground max-w-md">
+              <p className="hero-element mt-6 text-lg sm:text-xl text-muted-foreground max-w-lg">
                 We deliver books island-wide. Over 10,000+ books in stock.
               </p>
-              <div className="hero-element mt-6 sm:mt-8">
-                <Button asChild size="lg" className="rounded-sm bg-accent hover:bg-accent/90 text-white font-bold px-6 sm:px-8 py-6 text-xs sm:text-sm shadow-lg shadow-accent/20">
+              <div className="hero-element mt-8 sm:mt-10">
+                <Button asChild size="lg" className="rounded-sm bg-accent hover:bg-accent/90 text-white font-bold px-8 py-7 text-sm shadow-xl shadow-accent/20 transition-transform hover:-translate-y-1">
                   <Link to="/shop">
-                    MEET OUR BESTSELLER <ArrowRight className="ml-2 h-4 w-4" />
+                    MEET OUR BESTSELLER <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
               </div>
             </div>
 
-            <div className="relative mt-10 md:mt-0 flex justify-center md:justify-end overflow-hidden sm:overflow-visible">
-              <div className="relative w-full max-w-[300px] sm:max-w-[450px] aspect-[4/5] flex items-center justify-center">
-                <div className="hero-book absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 w-32 sm:w-48 shadow-[var(--shadow-elevated)] z-0 rotate-6 transform hover:rotate-12 transition-transform duration-500">
-                  <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400" alt="Book 1" className="w-full h-auto rounded-sm" />
+            <div className="lg:col-span-6 xl:col-span-5 relative mt-12 lg:mt-0 flex justify-center items-center h-full">
+              <div className="relative w-full max-w-[400px] md:max-w-[500px] aspect-square flex items-center justify-center">
+                {/* Book stack layout imitating the image */}
+                <div className="hero-book absolute right-4 top-0 w-40 md:w-56 shadow-[var(--shadow-elevated)] z-0 rotate-12 transform hover:rotate-6 transition-transform duration-500 rounded-lg overflow-hidden border-4 border-white">
+                  <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400" alt="Book 1" className="w-full h-auto" />
                 </div>
-                <div className="hero-book absolute left-0 sm:-left-4 bottom-10 w-28 sm:w-40 shadow-[var(--shadow-elevated)] z-10 -rotate-6 transform hover:-rotate-12 transition-transform duration-500">
-                  <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=400" alt="Book 2" className="w-full h-auto rounded-sm" />
+                <div className="hero-book absolute left-0 bottom-4 w-36 md:w-48 shadow-[var(--shadow-elevated)] z-10 -rotate-12 transform hover:-rotate-6 transition-transform duration-500 rounded-lg overflow-hidden border-4 border-white">
+                  <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=400" alt="Book 2" className="w-full h-auto" />
                 </div>
-                <div className="hero-book relative z-20 w-44 sm:w-64 shadow-[var(--shadow-elevated)] transform hover:-translate-y-4 transition-transform duration-500">
-                  <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=400" alt="Book 3" className="w-full h-auto rounded-sm" />
+                <div className="hero-book relative z-20 w-52 md:w-72 shadow-2xl transform hover:-translate-y-4 transition-transform duration-500 rounded-lg overflow-hidden border-4 border-white mt-10">
+                  <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=400" alt="Book 3" className="w-full h-auto" />
                 </div>
               </div>
             </div>
