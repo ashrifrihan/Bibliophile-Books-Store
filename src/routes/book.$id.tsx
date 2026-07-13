@@ -109,27 +109,18 @@ function BookPage() {
             <ArrowLeft className="h-4 w-4" /> Back to collection
           </Link>
           
-          <div className="w-full max-w-md relative flex items-center justify-center drop-shadow-2xl">
+          <div className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] relative flex items-center justify-center drop-shadow-2xl">
             {book.cover_url ? (
               <img 
                 src={book.cover_url} 
                 alt={`Cover of ${book.title}`} 
-                className="max-h-[500px] w-auto object-contain transition-transform duration-700 hover:scale-105"
+                className="w-full h-full object-contain transition-transform duration-700 hover:scale-105"
               />
             ) : (
-              <div className="h-[400px] w-[280px] bg-muted flex items-center justify-center text-muted-foreground rounded-lg shadow-inner">
+              <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground rounded-lg shadow-inner">
                 No Cover Image
               </div>
             )}
-          </div>
-          
-          {/* Mock Thumbnails below image to match requested design */}
-          <div className="flex gap-4 mt-12 justify-center opacity-80 hover:opacity-100 transition-opacity">
-            {book.cover_url && [1, 2, 3].map((i) => (
-              <div key={i} className="h-16 w-16 bg-[#F8F9FA] rounded-xl overflow-hidden p-1 cursor-pointer hover:ring-2 hover:ring-primary/50 transition-all">
-                <img src={book.cover_url} alt="" className="h-full w-full object-contain" />
-              </div>
-            ))}
           </div>
         </div>
 
