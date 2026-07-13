@@ -39,27 +39,6 @@ function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    // Hero Entrance
-    gsap.from(".hero-element", {
-      y: 40,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.15,
-      ease: "power3.out",
-      delay: 0.2
-    });
-    
-    // Books flying in
-    gsap.from(".hero-book", {
-      x: 150,
-      opacity: 0,
-      rotation: 15,
-      duration: 1.2,
-      stagger: 0.2,
-      ease: "back.out(1.5)",
-      delay: 0.6
-    });
-
     // Promo Banners Scroll
     gsap.utils.toArray('.promo-banner').forEach((banner: any, i) => {
       gsap.from(banner, {
@@ -108,9 +87,9 @@ function Home() {
       const { data, error } = await supabase
         .from("books")
         .select("*")
-        .order("is_featured", { ascending: false })
-        .order("created_at", { ascending: false })
+        .eq("is_featured", true)
         .limit(6);
+      
       if (error) throw error;
       return data as Book[];
     },
@@ -121,35 +100,9 @@ function Home() {
       <Header />
       <main>
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32 bg-gradient-to-br from-[#0c3e35] via-[#115448] to-[#176658] text-white">
-          {/* Detailed repeating Book outlines Pattern */}
-          <svg className="absolute inset-0 w-full h-full z-0 opacity-[0.06] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="book-pattern" width="120" height="120" patternUnits="userSpaceOnUse">
-                {/* Book outline 1 - Standing */}
-                <path d="M20 30 h10 v60 h-10 z" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M23 35 h4 v50 h-4 z" fill="none" stroke="currentColor" strokeWidth="1" />
-                
-                {/* Book outline 2 - Tilted */}
-                <g transform="rotate(15 50 60)">
-                  <path d="M45 25 h12 v60 h-12 z" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                  <line x1="49" y1="30" x2="49" y2="80" stroke="currentColor" strokeWidth="1" />
-                </g>
-                
-                {/* Book outline 3 - Open book */}
-                <path d="M75 75 c-5-2-12-2-15 2 c-3-4-10-4-15-2 v-20 c5-2 12-2 15 2 c3-4 10-4 15-2 z" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                
-                {/* Book outline 4 - Stacked flat */}
-                <path d="M80 25 h30 v8 h-30 z M82 33 h26 v8 h-26 z" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                
-                {/* Decorative sparks */}
-                <path d="M15 15 l2 2 l-2 2 l-2 -2 z" fill="currentColor" />
-                <path d="M100 100 l2 2 l-2 2 l-2 -2 z" fill="currentColor" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#book-pattern)" className="text-white" />
-          </svg>
-
+        <section className="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32 bg-gradient-to-br from-primary via-primary/95 to-[#16554b] text-white">
+          {/* Background Patterns & Blobs */}
+          <div className="absolute inset-0 z-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none" />
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 pointer-events-none" />
           
@@ -192,17 +145,17 @@ function Home() {
                   <div className="absolute w-[240px] sm:w-[300px] h-6 bg-black/40 rounded-full filter blur-md transform translate-y-32" />
                   
                   {/* Book 1 (Left tilted) */}
-                  <div className="hero-book absolute w-[170px] sm:w-[210px] aspect-[3/4] shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-sm overflow-hidden border-2 border-white/20 transform -rotate-12 -translate-x-12 translate-y-2 hover:rotate-0 hover:translate-y-0 transition-all duration-500">
+                  <div className="hero-book absolute w-[120px] sm:w-[210px] aspect-[3/4] shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-sm overflow-hidden border-2 border-white/20 transform -rotate-12 -translate-x-6 sm:-translate-x-12 translate-y-2 hover:rotate-0 hover:translate-y-0 transition-all duration-500">
                     <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400" alt="Book 1" className="w-full h-full object-cover" />
                   </div>
                   
                   {/* Book 2 (Right tilted) */}
-                  <div className="hero-book absolute w-[170px] sm:w-[210px] aspect-[3/4] shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-sm overflow-hidden border-2 border-white/20 transform rotate-12 translate-x-12 translate-y-1 hover:rotate-0 hover:translate-y-0 transition-all duration-500">
+                  <div className="hero-book absolute w-[120px] sm:w-[210px] aspect-[3/4] shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-sm overflow-hidden border-2 border-white/20 transform rotate-12 translate-x-6 sm:translate-x-12 translate-y-1 hover:rotate-0 hover:translate-y-0 transition-all duration-500">
                     <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=400" alt="Book 2" className="w-full h-full object-cover" />
                   </div>
                   
                   {/* Book 3 (Top straight focus) */}
-                  <div className="hero-book relative w-[180px] sm:w-[220px] aspect-[3/4] shadow-[0_25px_50px_rgba(0,0,0,0.6)] rounded-sm overflow-hidden border-4 border-white transform hover:scale-105 transition-all duration-500 z-10">
+                  <div className="hero-book relative w-[130px] sm:w-[220px] aspect-[3/4] shadow-[0_25px_50px_rgba(0,0,0,0.6)] rounded-sm overflow-hidden border-4 border-white transform hover:scale-105 transition-all duration-500 z-10">
                     <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=400" alt="Book 3" className="w-full h-full object-cover" />
                   </div>
                 </div>
