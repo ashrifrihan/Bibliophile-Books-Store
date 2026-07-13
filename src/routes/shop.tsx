@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { BookCard } from "@/components/site/BookCard";
+import { HorizontalBookCard } from "@/components/site/HorizontalBookCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CATEGORIES, type Book } from "@/lib/types";
@@ -142,9 +143,9 @@ function Shop() {
         {/* Grid */}
         <div className="w-full">
           {isLoading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {Array.from({ length: 10 }).map((_, i) => (
-                <div key={i} className="aspect-[2/3] rounded-sm bg-muted animate-pulse" />
+                <div key={i} className="h-48 rounded-3xl bg-muted animate-pulse" />
               ))}
             </div>
           ) : error ? (
@@ -180,8 +181,8 @@ function Shop() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                {data.books.map((b) => <BookCard key={b.id} book={b} />)}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {data.books.map((b) => <HorizontalBookCard key={b.id} book={b} />)}
               </div>
               
               {/* Pagination */}
