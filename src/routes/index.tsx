@@ -122,8 +122,34 @@ function Home() {
       <main>
         {/* Hero Section */}
         <section className="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32 bg-gradient-to-br from-[#0c3e35] via-[#115448] to-[#176658] text-white">
-          {/* Background Patterns & Blobs */}
-          <div className="absolute inset-0 z-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none" />
+          {/* Detailed repeating Book outlines Pattern */}
+          <svg className="absolute inset-0 w-full h-full z-0 opacity-[0.06] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="book-pattern" width="120" height="120" patternUnits="userSpaceOnUse">
+                {/* Book outline 1 - Standing */}
+                <path d="M20 30 h10 v60 h-10 z" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M23 35 h4 v50 h-4 z" fill="none" stroke="currentColor" strokeWidth="1" />
+                
+                {/* Book outline 2 - Tilted */}
+                <g transform="rotate(15 50 60)">
+                  <path d="M45 25 h12 v60 h-12 z" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                  <line x1="49" y1="30" x2="49" y2="80" stroke="currentColor" strokeWidth="1" />
+                </g>
+                
+                {/* Book outline 3 - Open book */}
+                <path d="M75 75 c-5-2-12-2-15 2 c-3-4-10-4-15-2 v-20 c5-2 12-2 15 2 c3-4 10-4 15-2 z" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                
+                {/* Book outline 4 - Stacked flat */}
+                <path d="M80 25 h30 v8 h-30 z M82 33 h26 v8 h-26 z" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                
+                {/* Decorative sparks */}
+                <path d="M15 15 l2 2 l-2 2 l-2 -2 z" fill="currentColor" />
+                <path d="M100 100 l2 2 l-2 2 l-2 -2 z" fill="currentColor" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#book-pattern)" className="text-white" />
+          </svg>
+
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 pointer-events-none" />
           
