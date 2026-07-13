@@ -127,7 +127,7 @@ function Home() {
               </div>
             </div>
 
-            <div className="lg:col-span-6 xl:col-span-5 relative mt-12 lg:mt-0 flex justify-center items-center h-full">
+            <div className="hidden lg:flex lg:col-span-6 xl:col-span-5 relative mt-12 lg:mt-0 justify-center items-center h-full">
               <div className="relative w-full max-w-[450px] aspect-square flex items-center justify-center">
                 {/* Background decorative elements */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-accent/15 to-transparent rounded-full filter blur-2xl opacity-40 pointer-events-none" />
