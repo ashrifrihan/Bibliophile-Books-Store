@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { BookCard } from "@/components/site/BookCard";
+import { HorizontalBookCard } from "@/components/site/HorizontalBookCard";
 import { Marquee } from "@/components/site/Marquee";
 import type { Book } from "@/lib/types";
 
@@ -235,16 +235,16 @@ function Home() {
             </Link>
           </div>
           {isLoading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="aspect-[2/3] rounded-xl bg-muted animate-pulse" />
+                <div key={i} className="h-48 rounded-3xl bg-muted animate-pulse" />
               ))}
             </div>
           ) : !featured?.length ? (
             <p className="text-muted-foreground">No books yet.</p>
           ) : (
-            <div className="trending-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-              {featured.map((b) => <div key={b.id} className="trending-item"><BookCard book={b} /></div>)}
+            <div className="trending-grid grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {featured.map((b) => <div key={b.id} className="trending-item"><HorizontalBookCard book={b} /></div>)}
             </div>
           )}
         </section>
