@@ -48,7 +48,9 @@ export function Footer() {
       <div className="border-t border-primary-foreground/10">
         <div className="container-page py-4 text-xs opacity-70 flex justify-between">
           <span>© {new Date().getFullYear()} Bibliophile Books Store</span>
-          <span>Made with care.</span>
+          <span>
+            developed is <a href="https://nexlora-io.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:underline">nexzoa</a>
+          </span>
         </div>
       </div>
     </footer>

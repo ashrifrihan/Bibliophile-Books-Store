@@ -22,8 +22,8 @@ export const Route = createFileRoute("/shop")({
   validateSearch: (s) => searchSchema.parse(s),
   head: () => ({
     meta: [
-      { title: "Shop All Books — Bookio" },
-      { name: "description", content: "Browse the full Bookio catalog. Filter by category, price, or buy/rent mode." },
+      { title: "Shop All Books" },
+      { name: "description", content: "Browse the full Bibliophile catalog. Filter by category, price, or buy/rent mode." },
     ],
   }),
   component: Shop,

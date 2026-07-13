@@ -12,7 +12,7 @@ import heroImage from "@/assets/hero-books.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Bibliophile Books Store - Buy & Rent Books Online" },
+      { title: "Bibliophile Books Store" },
       { name: "description", content: "The biggest little bookstore for buying and renting your next favorite read. 10,000+ books curated across fiction, fantasy, spirituality, and more." },
       { property: "og:image", content: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1200&h=630&fit=crop" },
     ],
@@ -142,7 +142,7 @@ function Home() {
         {/* Trending */}
         <section className="container-page pb-20">
           <div className="flex items-end justify-between mb-8 border-b pb-4">
-            <h2 className="text-2xl font-display font-bold text-[#1e3a5f]">Trending on Bookio</h2>
+            <h2 className="text-2xl font-display font-bold text-[#1e3a5f]">Trending on Bibliophile</h2>
             <Link to="/shop" className="text-sm font-semibold text-muted-foreground hover:text-primary flex items-center">
               View all <ArrowRight className="ml-1 h-3 w-3" />
             </Link>

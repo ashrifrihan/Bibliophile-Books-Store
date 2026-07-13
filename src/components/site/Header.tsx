@@ -79,7 +79,7 @@ export function Header() {
       <div className="hidden md:flex bg-primary text-primary-foreground text-xs">
         <div className="container-page flex justify-between py-2">
           <div className="flex items-center gap-2 font-medium">
-            <Phone className="h-3 w-3" /> +1 (840) 841-2569 · 24/7 Support
+            <Phone className="h-3 w-3" /> +94 75 930 3944 · 24/7 Support
           </div>
           <div className="opacity-90 font-medium">Free shipping on orders over Rs.5000</div>
         </div>
@@ -89,7 +89,7 @@ export function Header() {
           <div className="h-9 w-9 rounded-lg bg-primary text-primary-foreground grid place-items-center shadow-md">
             <BookOpen className="h-5 w-5" />
           </div>
-          <span className="font-display font-bold text-2xl tracking-tight text-[#1e3a5f]">Bookio</span>
+          <span className="font-display font-bold text-2xl tracking-tight text-[#1e3a5f]">Bibliophile</span>
         </Link>
 
         <div className="hidden md:flex flex-1 max-w-xl mx-auto relative" ref={searchRef}>

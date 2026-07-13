@@ -62,7 +62,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Bibliophile Books Store — Buy & Rent Books Online" },
+      { title: "Bibliophile Books Store" },
       { name: "description", content: "Bibliophile is a warm neighborhood bookstore where you can buy or rent thoughtfully curated books. Fiction, fantasy, spirituality, education and more." },
       { name: "author", content: "Bibliophile" },
       { property: "og:title", content: "Bibliophile Books Store" },
